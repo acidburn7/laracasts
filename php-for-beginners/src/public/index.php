@@ -30,19 +30,22 @@
             ]
         ];
 
-        $filterByAuthor = function ($books, $author) {
+        function filter($items, $fn) {
             $result = [];
 
-            foreach ($books as $book) {
-                if ($book['author'] == $author) {
-                    $result[] = $book;
+            foreach ($items as $item) {
+                if ($fn($item)) {
+                    $result[] = $item;
                 }
             }
 
             return $result;
-        };
+        }
 
-        $filteredBooks = $filterByAuthor($books, 'Philip K. Dick');
+        // $filteredBooks = $filterByAuthor($books, 'author', 'Philip K. Dick');
+        $filteredBooks = filter($books, function($book) {
+            return $book['releaseYear'] == 1968;
+        });
     ?>
     <ul>
         <?php foreach($filteredBooks as $book): ?>
