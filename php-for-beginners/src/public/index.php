@@ -1,4 +1,6 @@
 <?php
+
+$heading = "Home";
 $books = [
     [
         'name' => 'Do Androids of Electric Sheep',
@@ -24,4 +26,4 @@ $filteredBooks = array_filter($books, function($book) {
     return $book['releaseYear'] == 1968;
 });
 
-require "index.view.php";
+require "views/index.view.php";
