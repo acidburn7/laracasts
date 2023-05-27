@@ -1,7 +1,8 @@
 <?php
     $activeMenuClass = 'bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium';
     $menuClass = 'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium';
-
+    $activeMobileMenuClass = 'bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium';
+    $mobilemenuClass = 'text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium';
     $menuItems = [['name' => "Home", 'uri' => '/'],
                 ['name' => "About", 'uri' => '/about.php'],
                 ['name' => "Contact", 'uri' => '/contact.php']];
@@ -89,8 +90,14 @@
     <div class="md:hidden" id="mobile-menu">
     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Dashboard</a>
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</a>
+        <?php foreach($menuItems as $menuItem): ?>
+            <a 
+                href="<?= $menuItem['uri'] ?>" 
+                class="<?= urlIs($menuItem['uri']) ? $activeMenuClass : $menuClass ?>"
+                <?= urlIs($menuItem['uri']) ? 'aria-current="page"' : '' ?>>
+                <?= $menuItem['name'] ?>
+            </a>
+        <?php endforeach; ?>
     </div>
     <div class="border-t border-gray-700 pb-3 pt-4">
         <div class="flex items-center px-5">
