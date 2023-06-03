@@ -1,5 +1,7 @@
 <?php
 
+$heading = "Home";
+
 function dd($value) {
     echo "<pre>";
     var_dump($value);
@@ -8,6 +10,5 @@ function dd($value) {
     die();
 }
 
-function urlIs($value) {
-    return $_SERVER['REQUEST_URI'] == $value;
-}
+require "functions.php";
+require "views/index.view.php";
