@@ -1,15 +1,14 @@
-FROM php:8-fpm-alpine
+FROM php:8.1-fpm
 
-ENV PHPGROUP=laravel
-ENV PHPUSER=laravel
+ARG USERNAME=laravel
+ARG UID=1000
 
-RUN adduser -g ${PHPGROUP} -s /bin/sh -D ${PHPUSER}
+#run non root container
+RUN adduser --uid $UID $USERNAME && \
+    usermod -a -G www-data,root $USERNAME 
 
-RUN sed -i "s/user = www-data/user = ${PHPUSER}/g" /usr/local/etc/php-fpm.d/www.conf
-RUN sed -i "s/group = www-data/group = ${PHPGROUP}/g" /usr/local/etc/php-fpm.d/www.conf
+USER $USERNAME
 
-RUN mkdir -p /var/www/html/public
+EXPOSE 9000
 
-RUN docker-php-ext-install pdo pdo_mysql
-
-CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
+CMD ["php-fpm"]
